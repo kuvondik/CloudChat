@@ -1,2 +1,2 @@
 # CloudChat
- WPF Desktop App for chatting
+ WPF Desktop Chat App
