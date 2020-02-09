@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="CloudChat.Emoji"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+
+    <WrapPanel>
+        <StackPanel>
+            <Button Margin="10" Height="50"  Style="{StaticResource InputBoxIconButtonStyle}">
+                <ContentControl Template="{StaticResource  Emoji1}"/>
+            </Button>
+            <TextBlock Text="happy"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource WordBlueBrush}"/>
+        </StackPanel>
+
+        <StackPanel>
+            <Button Margin="10" Height="50"  Style="{StaticResource InputBoxIconButtonStyle}">
+                <ContentControl Template="{StaticResource  Emoji2}"/>
+            </Button>
+            <TextBlock Text="smile"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource WordBlueBrush}"/>
+        </StackPanel>
+        
+        <StackPanel>
+            <Button Margin="10" Height="50"  Style="{StaticResource InputBoxIconButtonStyle}">
+                <ContentControl Template="{StaticResource  Emoji3}"/>
+            </Button>
+            <TextBlock Text="wink"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource WordBlueBrush}"/>
+        </StackPanel>
+        
+        <StackPanel>
+            <Button Margin="10" Height="50"  Style="{StaticResource InputBoxIconButtonStyle}">
+                <ContentControl Template="{StaticResource  Emoji4}"/>
+            </Button>
+            <TextBlock Text="grinning face"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="{StaticResource WordBlueBrush}"/>
+        </StackPanel>
+    </WrapPanel>
+   
+</UserControl>

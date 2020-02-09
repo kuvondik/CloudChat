@@ -1,0 +1,450 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CloudChat">
+
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="Padding" Value="15 5" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ForegroundLightBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border x:Name="border"
+                                Panel.ZIndex="1"
+                                CornerRadius="15"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        
+                        <TextBlock IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}"
+                                   x:Name="placeholder"
+                                   FontWeight="Light"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Padding="17 5"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   Foreground="{StaticResource MainBackgroundLightBrush}">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text,RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MainVeryDarkColorBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MainVeryDarkColorBrush}" />
+                        </Trigger>-->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--Simple TextBox Style-->
+    <Style TargetType="{x:Type TextBox}" x:Key="SimpleTextBoxStyle" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="BorderBrush" Value="{StaticResource BlueColorBrush1}" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ForegroundLightBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border x:Name="border"
+                                Panel.ZIndex="1"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+
+                        <TextBlock IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}"
+                                   x:Name="placeholder"
+                                   FontWeight="Light"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Padding="17 5"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   Foreground="{StaticResource MainBackgroundLightBrush}"
+                                   RenderTransformOrigin=".5 .5">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="scaleTransform"/>
+                                    <TranslateTransform x:Name="translateTransform"/>
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard DecelerationRatio="1">
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="X"
+                                                         To="0"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="Y"
+                                                         To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard DecelerationRatio="1">
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="0.8"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="0.8"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="X"
+                                                         To="-30"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="Y"
+                                                         To="-18"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Input Box Style-->
+    <Style x:Key="InputBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Background" Value="{StaticResource ForegroundLightBrush}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3"
+                            Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                            <TextBlock IsHitTestVisible="False"
+                                       Text="{TemplateBinding Tag}"
+                                       x:Name="placeholder"
+                                       Padding="{TemplateBinding Padding}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       Foreground="{StaticResource ForegroundDarkBrush}">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text,RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                                <Setter Property="local:AnimateSlideInFromRightMarginForInputBoxProperty.Value" Value="True" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource WordBlueBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--PasswordBox Style-->
+    <Style TargetType="{x:Type PasswordBox}"  BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="Padding" Value="15 5" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ForegroundLightBrush}"/>
+        <Setter Property="local:MonitorPasswordProperty.Value" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border x:Name="border"
+                                Panel.ZIndex="1"
+                                CornerRadius="15"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <TextBlock IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}"
+                                   x:Name="placeholder"
+                                   FontWeight="Light"
+                                   Padding="17 5"
+                                   Visibility="{TemplateBinding local:HasTextProperty.Value, Converter={local:BooleanToVisibilityConverterForHidden}}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   Foreground="{StaticResource MainBackgroundLightBrush}">
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56" />
+                        </Trigger>
+                        <!--<Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MainVeryDarkColorBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MainVeryDarkColorBrush}" />
+                        </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Simple PasswordBox Style-->
+    <Style TargetType="{x:Type PasswordBox}" x:Key="SimplePasswordBoxStyle" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="BorderBrush" Value="{StaticResource BlueColorBrush1}" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
+        <Setter Property="Padding" Value="15 5" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ForegroundLightBrush}"/>
+        <Setter Property="local:MonitorPasswordProperty.Value" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border x:Name="border"
+                                Panel.ZIndex="1"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <TextBlock IsHitTestVisible="False"
+                                   Text="{TemplateBinding Tag}"
+                                   x:Name="placeholder"
+                                   FontWeight="Light"
+                                   Visibility="{TemplateBinding local:HasTextProperty.Value, Converter={local:BooleanToVisibilityConverterForHidden}}"
+                                   Padding="{TemplateBinding Padding}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   Foreground="{StaticResource MainBackgroundLightBrush}"
+                                   RenderTransformOrigin=".5 .5">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform x:Name="scaleTransform"/>
+                                    <TranslateTransform x:Name="translateTransform"/>
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="True"/>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56" />
+                        </Trigger>
+                        
+                        <!--<Trigger Property="local:HasTextProperty.Value" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard DecelerationRatio="1">
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="0.8"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="0.8"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="X"
+                                                         To="-30"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="Y"
+                                                         To="-18"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard DecelerationRatio="1">
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="scaleTransform"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="X"
+                                                         To="0"/>
+                                        <DoubleAnimation Duration="0:0:0.1"
+                                                         Storyboard.TargetName="translateTransform"
+                                                         Storyboard.TargetProperty="Y"
+                                                         To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Spinning Image Style-->
+    <Style TargetType="{x:Type TextBlock}" x:Key="SpinningImageStyle" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="RenderTransformOrigin" Value="0.5 0.5" />
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+        <Setter Property="Text" Value="{StaticResource FontAwesomeCircleNotch}"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform/>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Storyboard x:Key="Spin">
+                <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.RenderTransform).(RotateTransform.Angle)"
+                                 From="0"
+                                 To="360"
+                                 Duration="0:0:1.0"
+                                 RepeatBehavior="Forever" />
+            </Storyboard>
+        </Style.Resources>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self},Path=IsVisible}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Name="SpinStoryboard" Storyboard="{StaticResource Spin}" />
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <RemoveStoryboard BeginStoryboardName="SpinStoryboard" />
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Loading Icon Style-->
+    <Style TargetType="{x:Type TextBlock}" x:Key="LoadingIcon">
+        <Setter Property="RenderTransformOrigin" Value="0.5 0.5"/>
+        <Setter Property="Text" Value="{StaticResource FontAwesomeCircleNotch}"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform/>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Storyboard x:Key="loadingIcon">
+                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                 From="0"
+                                 To="360"
+                                 Duration="0:0:1.2"
+                                 RepeatBehavior="Forever" />
+            </Storyboard>
+        </Style.Resources>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self},Path=IsVisible}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Name="SpinStoryboard" Storyboard="{StaticResource loadingIcon}" />
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <RemoveStoryboard BeginStoryboardName="SpinStoryboard" />
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- Text block style -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockUnderlineStyle" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="Foreground" Value="{StaticResource OldMainColorBrush}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="RenderTransformOrigin" Value=".5 .5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7EFADA15-168E-4BC2-AEA1-7F54A48BE3EE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CloudChat</RootNamespace>
+    <AssemblyName>CloudChat</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\Logo\bubble-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Animation\FrameworkElementAnimations .cs" />
+    <Compile Include="Animation\PageAnimation.cs" />
+    <Compile Include="Animation\PageAnimations.cs" />
+    <Compile Include="Animation\StoryboardHelpers.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Control\ChatImageFrameControl.xaml.cs">
+      <DependentUpon>ChatImageFrameControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Clouds\CloudAnimations.xaml.cs">
+      <DependentUpon>CloudAnimations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Contact\AddConatactForm.xaml.cs">
+      <DependentUpon>AddConatactForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Contact\ContactItem.xaml.cs">
+      <DependentUpon>ContactItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Contact\ContactListControl.xaml.cs">
+      <DependentUpon>ContactListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\LoadingControl\Loading1.xaml.cs">
+      <DependentUpon>Loading1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\LoadingControl\MainLoadingControl.xaml.cs">
+      <DependentUpon>MainLoadingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Search\SearchTextBoxControl.xaml.cs">
+      <DependentUpon>SearchTextBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FTPServices\FTPServices.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewContentChecker\NewMessageChecker.cs" />
+    <Compile Include="NewContentChecker\NewChatChecker.cs" />
+    <Compile Include="RGB\RgbValue.cs" />
+    <Compile Include="ValueConverter\ApplicationPageHelpers.cs" />
+    <Compile Include="ValueConverter\BaseValueConverter.cs" />
+    <Compile Include="ValueConverter\StringToImageSourceConverter.cs" />
+    <Compile Include="ValueConverter\BooleanInvertConverter.cs" />
+    <Compile Include="ValueConverter\SideMenuContentConverterConverter.cs" />
+    <Compile Include="ValueConverter\BooleanToAlignmentConverter.cs" />
+    <Compile Include="ValueConverter\BooleanToBorderThicknessConverter.cs" />
+    <Compile Include="ValueConverter\BooleanToCornerConverter.cs" />
+    <Compile Include="ValueConverter\BooleanToVisibilityConverterForCollapsed.cs" />
+    <Compile Include="ValueConverter\BooleanToVisibilityConverterForHidden.cs" />
+    <Compile Include="ValueConverter\HorizontalAlignmentConverter.cs" />
+    <Compile Include="ValueConverter\IconTypeToFontAwesomeConverter.cs" />
+    <Compile Include="ValueConverter\IoCConverter .cs" />
+    <Compile Include="ValueConverter\IsSentByMeToBackgroundColorConverter.cs" />
+    <Compile Include="ValueConverter\MenuItemTypeVisibilityConverter.cs" />
+    <Compile Include="ValueConverter\NumberToVisibilityConverter.cs" />
+    <Compile Include="ValueConverter\PopupContentConverter.cs" />
+    <Compile Include="ValueConverter\StringRGBToBrushConverter.cs" />
+    <Compile Include="ValueConverter\TimeToDisplayTimeConverter.cs" />
+    <Compile Include="ValueConverter\TimeToReadTimeConverter.cs" />
+    <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModel\Application\LoginViewModel .cs" />
+    <Compile Include="ViewModel\Application\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\IHavePassword.cs" />
+    <Compile Include="ViewModel\Base\RelayCommand.cs" />
+    <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\ChatListItemViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\ChatListViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatInfoControlViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageItemImageAttachmentViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageItemViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageListViewModel.cs" />
+    <Compile Include="ViewModel\Chat\Design\ChatList\ChatListDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\Design\ChatList\ChatListItemDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\Design\ChatMessage\ChatInfoDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\Design\ChatMessage\ChatMessageItemDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\Design\ChatMessage\ChatMessageListDesignModel.cs" />
+    <Compile Include="ViewModel\Contact\AddContactFormViewModel.cs" />
+    <Compile Include="ViewModel\Contact\ContactItemViewModel.cs" />
+    <Compile Include="ViewModel\Contact\ContactListViewModel.cs" />
+    <Compile Include="ViewModel\Contact\Design\ContactItemDesignModel.cs" />
+    <Compile Include="ViewModel\Contact\Design\ContactListDesignModel.cs" />
+    <Compile Include="ViewModel\Dialogs\BaseDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Design\MessageBoxDialogDesignModel.cs" />
+    <Compile Include="ViewModel\Dialogs\MessageBoxDialogViewModel.cs" />
+    <Compile Include="ViewModel\Emoji\EmojiListViewModel.cs" />
+    <Compile Include="ViewModel\Emoji\EmojiViewModel.cs" />
+    <Compile Include="ViewModel\Input\Design\PasswordEntryDesignModel.cs" />
+    <Compile Include="ViewModel\Input\Design\TextEntryDesignModel.cs" />
+    <Compile Include="ViewModel\Input\PasswordEntryViewModel.cs" />
+    <Compile Include="ViewModel\Input\TextEntryViewModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\Base\BasePopupMenuViewModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\ChatAttachmentPopupMenuViewModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\Design\ChatAttachmentPopupMenuDesignModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\Design\MenuDesignModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\Design\MenuItemDesignModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\MenuItemViewModel.cs" />
+    <Compile Include="ViewModel\PopupMenu\MenuViewModel.cs" />
+    <Compile Include="ViewModel\Settings\AccountInfoViewModel.cs" />
+    <Compile Include="ViewModel\Settings\Design\AccountInfoDesignModel.cs" />
+    <Compile Include="ViewModel\Settings\Design\SettingsDesignModel.cs" />
+    <Compile Include="ViewModel\Settings\Design\SettingsOptionDesignModel.cs" />
+    <Compile Include="ViewModel\Settings\SettingsOptionViewModel.cs" />
+    <Compile Include="ViewModel\Settings\SettingsViewModel.cs" />
+    <Compile Include="WebRequests\WebRequestResultExtensions.cs" />
+    <Compile Include="Window\WindowResizer.cs" />
+    <Compile Include="WPFViewModels\DialogWindowViewModel.cs" />
+    <Compile Include="WPFViewModels\ViewModelLocator.cs" />
+    <Compile Include="WPFViewModels\WindowViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttachedProperties\AnimationSlideInDirection.cs" />
+    <Compile Include="AttachedProperties\BaseAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\BorderAttachmentProperties.cs" />
+    <Compile Include="AttachedProperties\ButtonAttachedProperties .cs" />
+    <Compile Include="AttachedProperties\FrameAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\PanelChildrenMarginAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\ScrollViewverAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\TextEntryWidthMatcherProeprty.cs" />
+    <Compile Include="Control\Menu\BubbleContent.xaml.cs">
+      <DependentUpon>BubbleContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Chat\ChatList\ChatListControl.xaml.cs">
+      <DependentUpon>ChatListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Chat\ChatList\ChatListItemControl.xaml.cs">
+      <DependentUpon>ChatListItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Chat\ChatMessage\ChatInfoControl.xaml.cs">
+      <DependentUpon>ChatInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Chat\ChatMessage\ChatMessageItemControl.xaml.cs">
+      <DependentUpon>ChatMessageItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Chat\ChatMessage\ChatMessageListControl.xaml.cs">
+      <DependentUpon>ChatMessageListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Emoji\Emoji Pack\Emoji.xaml.cs">
+      <DependentUpon>Emoji.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Emoji\EmojiList.xaml.cs">
+      <DependentUpon>EmojiList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Input\PasswordEntryControl.xaml.cs">
+      <DependentUpon>PasswordEntryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Input\TextEntryControl.xaml.cs">
+      <DependentUpon>TextEntryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Menu\VerticalMenu.xaml.cs">
+      <DependentUpon>VerticalMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\PageHost.xaml.cs">
+      <DependentUpon>PageHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Settings\AccountInfoControl.xaml.cs">
+      <DependentUpon>AccountInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Settings\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Settings\SettingsOptionControl.xaml.cs">
+      <DependentUpon>SettingsOptionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\SideMenuControl\SideMenuControl.xaml.cs">
+      <DependentUpon>SideMenuControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BaseDialogUserControl.cs" />
+    <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
+      <DependentUpon>DialogMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DI\DI.cs" />
+    <Compile Include="DI\FrameworkContructionExtensions.cs" />
+    <Compile Include="DI\UI\IUIManager.cs" />
+    <Compile Include="DI\UI\UIManager.cs" />
+    <Compile Include="Pages\BasePage.cs" />
+    <Compile Include="Pages\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Fonts\ABeeZee-Regular.ttf" />
+    <Resource Include="Fonts\BELL.TTF" />
+    <Resource Include="Fonts\BELLB.TTF" />
+    <Resource Include="Fonts\BellGothicStd-Bold.otf" />
+    <Resource Include="Fonts\BellGothicStd-Light.otf" />
+    <Resource Include="Fonts\CALIBRI.TTF" />
+    <Resource Include="Fonts\fontawesome-webfont.ttf" />
+    <Resource Include="Fonts\MAIAN.TTF" />
+    <Resource Include="Fonts\MALGUN.TTF" />
+    <Resource Include="Fonts\seguiemj.ttf" />
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Control\ChatImageFrameControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Clouds\CloudAnimations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Contact\AddConatactForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Contact\ContactItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Contact\ContactListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\LoadingControl\Loading1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\LoadingControl\MainLoadingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Menu\BubbleContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Chat\ChatList\ChatListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Chat\ChatList\ChatListItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Chat\ChatMessage\ChatInfoControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Chat\ChatMessage\ChatMessageItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Chat\ChatMessage\ChatMessageListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Emoji\Emoji Pack\Emoji.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Emoji\EmojiList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Input\PasswordEntryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Input\TextEntryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Menu\VerticalMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\PageHost.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Search\SearchTextBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Settings\AccountInfoControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Settings\SettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Settings\SettingsOptionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\SideMenuControl\SideMenuControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\DialogMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ChatPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RegisterPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ContextMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DefaultBitmapImages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Scroll.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Texts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VectorIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background\Waterdrops.jpg" />
+    <Resource Include="Images\Icons\chat.png" />
+    <Resource Include="Images\Icons\data.png" />
+    <Resource Include="Images\Icons\heart.png" />
+    <Resource Include="Images\Icons\help.png" />
+    <Resource Include="Images\Icons\lock.png" />
+    <Resource Include="Images\Icons\microphone.png" />
+    <Resource Include="Images\Icons\person.png" />
+    <Resource Include="Images\Icons\star1.png" />
+    <Resource Include="Images\Background\Field.jpg" />
+    <Resource Include="FodyWeavers.xml" />
+    <Resource Include="Images\Logo\bubble-icon.ico" />
+    <Resource Include="Images\Logo\spinner_inner_holo.png" />
+    <Resource Include="Images\Sample\Labrador.jpg" />
+    <Resource Include="Images\Sample\self-motivation.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudChat.Core\CloudChat.Core.csproj">
+      <Project>{2e26bb67-73f3-4f09-a87a-29109fa7ad23}</Project>
+      <Name>CloudChat.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CloudChat.Relational\CloudChat.Relational.csproj">
+      <Project>{e6ab9f73-dea0-4f32-ba77-a7468edf57fa}</Project>
+      <Name>CloudChat.Relational</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dna.Framework">
+      <Version>1.0.7.15</Version>
+    </PackageReference>
+    <PackageReference Include="Fody">
+      <Version>5.0.5</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>2.2.4</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>3.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Windows.Interactivity.WPF">
+      <Version>2.0.20525</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background\Person.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

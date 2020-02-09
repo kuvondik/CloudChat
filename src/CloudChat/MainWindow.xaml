@@ -1,0 +1,252 @@
+﻿<Window x:Class="CloudChat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloudChat"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        x:Name="AppWindow"
+        Icon="/Images/Logo/bubble-icon.ico"
+        Deactivated="AppWindow_Deactivated"
+        Activated="AppWindow_Activated"
+        MinWidth="{Binding WindowMinimumWidth}"
+        MinHeight="{Binding WindowMinimumHeight}"
+        Title="Welcome, friend!" 
+        Height="600" 
+        Width="900"
+        AllowsTransparency="True"
+        d:DataContext="{x:Type local:WindowViewModel}"
+        PreviewKeyDown="AppWindow_PreviewKeyDown"
+        MouseDown="AppWindow_MouseDown">
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                        
+                        <Border Padding="{Binding OuterMarginSize,FallbackValue=0}">
+                            
+                            <!-- Main window outline -->
+                            <Grid UseLayoutRounding="True"
+                                  SnapsToDevicePixels="True">
+                                <Grid.Effect>
+                                    <DropShadowEffect BlurRadius="5" Direction="-75" ShadowDepth="1.5" Opacity="0.3"/>
+                                </Grid.Effect>
+                                <!-- Outer dragging border -->
+                                <Border Panel.ZIndex="2"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=0}" />
+
+                                <!-- Opacity mask for corners on grid -->
+                                <Border x:Name="Container"
+                                        Background="{StaticResource ForegroundLightBrush}"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=0}">
+                                    <!--<Border.Background>
+                                        <LinearGradientBrush StartPoint="0.5 0" EndPoint="0.5 1">
+                                            <GradientStop Offset="1" Color="{StaticResource ForegroundLight}"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>-->
+                                </Border>
+
+                                <!-- The main window content -->
+                                <Grid>
+
+                                    <!-- Corner clipping -->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+
+                                    <Grid.RowDefinitions>
+
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=25}" />
+                                        <!-- No Internet Connection Bar -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Window Content -->
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Title Bar -->
+                                    <Grid Background="{StaticResource ForegroundMainLightBrush}"
+                                          Panel.ZIndex="2">
+
+                                        <Grid.ColumnDefinitions>
+
+                                            <!-- Logo -->
+                                            <ColumnDefinition Width="Auto" />
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*" />
+                                            <!-- Windows Button -->
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Logo -->
+                                        <ContentControl Margin="4"
+                                                        Foreground="#7BC3D9"
+                                                        Template="{StaticResource MyMainLogoIcon}">
+                                            <ContentControl.InputBindings>
+                                                <MouseBinding MouseAction="LeftClick" Command="{Binding MenuCommand}"/>
+                                            </ContentControl.InputBindings>
+                                        </ContentControl>
+
+                                        <!-- Title -->
+                                        <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Margin="5">
+                                            <StackPanel>
+                                                <TextBlock FontFamily="{StaticResource Maiandra GD}" FontWeight="Bold" FontSize="{StaticResource FontSizeRegular}">
+                                                    <Run Text="Cloud Chat" Foreground="{StaticResource WordBlueBrush}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Viewbox>
+
+                                        <!-- Window Buttons -->
+                                        <Viewbox Grid.Column="2">
+                                            <StackPanel  Orientation="Horizontal">
+                                                <!--Minimize-->
+                                                <Button HorizontalAlignment="Center" 
+                                                        Padding="10"
+                                                        Command="{Binding MinimizeCommand}"  
+                                                        Style="{StaticResource ControlButtonStyle}">
+                                                    <ContentControl Template="{StaticResource MyMinimizeIcon}"/>
+                                                </Button>
+                                                <!--Maximize-->
+                                                <Button HorizontalAlignment="Center"
+                                                        Padding="10"
+                                                        Command="{Binding MaximizeCommand}" 
+                                                        Style="{StaticResource ControlButtonStyle}">
+                                                    <ContentControl Template="{StaticResource MyMaximizeIcon}"/>
+                                                </Button>
+                                                <!--Close-->
+                                                <Button HorizontalAlignment="Center"
+                                                        Command="{Binding CloseCommand}"
+                                                        Style="{StaticResource CloseButtonStyle}" >
+                                                    <TextBlock FontFamily="{StaticResource FontAwesome}" FontWeight="Light" Text="{StaticResource FontAwesomePowerOff}"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Viewbox>
+                                    </Grid>
+
+                                    <!-- No Internert Connection Bar -->
+                                    <Border Background="{StaticResource WordRedBrush}"
+                                            Grid.Row="1"
+                                            Padding="10"
+                                            Panel.ZIndex="1"
+                                            local:AnimateSlideInFromTopFullyProperty.Value="{Binding ApplicationViewModel.ServerReachable,
+                                                                                                Source={x:Static local:ViewModelLocator.Instance},
+                                                                                                Converter={local:BooleanInvertConverter}}">
+                                        <Label HorizontalAlignment="Center"
+                                               Foreground="{StaticResource ForegroundLightBrush}"
+                                               FontSize="{StaticResource FontSizeSmaller}"
+                                               Content="No internet connection. Please check your network."/>
+                                    </Border>
+                                    
+                                    <!-- Window Content -->
+                                    <Border Grid.Row="2" 
+                                            Padding="{Binding InnerContentPadding}" ClipToBounds="True">
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    </Border>
+
+                                </Grid>
+                            </Grid>
+                        </Border>    
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <!-- WindowChrome -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            GlassFrameThickness="0"
+            CornerRadius="{Binding WindowCornerRadius,FallbackValue=0}"/>
+    </WindowChrome.WindowChrome>
+    <Grid x:Name="mainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="sideMenuColumn" 
+                                  Width="Auto"/>
+                <ColumnDefinition x:Name="gridSplitterColumn"
+                                  Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <local:CloudAnimations Grid.ColumnSpan="3"
+                                   local:AnimateFadeInProperty.Value="{Binding ApplicationViewModel.CloudAnimationVisible,
+                                                                                       Source={x:Static local:ViewModelLocator.Instance}}"/>
+
+            <!--Dimming overlay for all-->
+            <Border Grid.ColumnSpan="3"
+                    Opacity="0.3"
+                    Panel.ZIndex="100">
+                <Border Background="{StaticResource ForegroundVeryDarkBrush}"
+                        Opacity="0"
+                        local:AnimateFadeInProperty.Value="{Binding DimmableOverlayForAllVisible}"/>
+            </Border>
+
+            <!-- Chat and Login pages-->
+            <local:PageHost Grid.Column="2"
+                            DataContext="{x:Static local:ViewModelLocator.Instance}"
+                            CurrentPage="{Binding ApplicationViewModel.CurrentPage}"
+                            CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel}"/>
+
+            <!-- Side Menu -->
+            <local:SideMenuControl x:Name="sideMenuControl"
+                                   Grid.ColumnSpan="2"
+                                   Visibility="Collapsed"
+                                   DataContext="{Binding ApplicationViewModel,Source={x:Static local:ViewModelLocator.Instance}}"
+                                   local:AnimateSlideInFromLeftFullyProperty.Value="{Binding SideMenuVisible}"
+                                   Content="{Binding CurrentSideMenuContent, Converter={local:SideMenuContentConverter}}"/>
+
+
+            <!-- Grid Splitter -->
+            <!--<GridSplitter VerticalAlignment="Stretch"
+                          x:Name="gridSplitter"
+                          BorderThickness="0 0 0.3 0 "
+                          Visibility="{Binding ApplicationViewModel.SideMenuVisible,
+                                               Converter={local:BooleanToVisibilityConverterForCollapsed},
+                                               ConverterParameter=True,
+                                               FallbackValue=Collapsed,
+                                               Source={x:Static local:ViewModelLocator.Instance}}"
+                          BorderBrush="{StaticResource ForegroundMainBrush}"
+                          Background="Transparent"
+                          Grid.Column="1"
+                          Width="5"/>-->
+        <Border BorderThickness="0 0 0.3 0"
+                BorderBrush="{StaticResource ForegroundMainBrush}"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Grid.Column="1"
+                Width="0.3"/>
+
+        <!--Dimming overlay-->
+            <Border Grid.ColumnSpan="3"
+                    Opacity="0.3">
+                <Border.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding SettingsViewModel.CloseCommand,Source={x:Static local:ViewModelLocator.Instance}}"/>
+                </Border.InputBindings>
+                <Border Background="{StaticResource ForegroundVeryDarkBrush}"
+                        local:AnimateFadeInProperty.Value="{Binding ApplicationViewModel.DimmableOverlayVisible,
+                                                                          Source={x:Static local:ViewModelLocator.Instance}}"/>
+            </Border>
+
+            <!--Settings control-->
+            <local:SettingsControl Grid.ColumnSpan="3"
+                                   local:AnimateSlideInFromTopMarginProperty.Value="{Binding ApplicationViewModel.SettingsControlVisible,
+                                                                                       Source={x:Static local:ViewModelLocator.Instance}}"/>
+
+            <!-- Add Contact form -->
+            <local:AddConatactForm VerticalAlignment="Center"
+                                   Grid.ColumnSpan="3"
+                                   HorizontalAlignment="Center"
+                                   local:AnimateSlideInFromBottomMarginProperty.Value="{Binding ApplicationViewModel.AddContactFormVisible,Source={x:Static local:ViewModelLocator.Instance}}" />
+
+            <!-- Chat Info -->
+            <local:ChatInfoControl Grid.ColumnSpan="3"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   local:AnimateSlideInFromRightProperty.Value="{Binding ApplicationViewModel.ChatInfoControlVisible,
+                                                                                         Source={x:Static local:ViewModelLocator.Instance}}"/>
+        </Grid>
+</Window>

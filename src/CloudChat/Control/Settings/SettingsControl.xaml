@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="CloudChat.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CloudChat"
+             mc:Ignorable="d"
+             d:DataContext="{x:Static local:SettingsDesignModel.Instance}">
+    
+    <Grid Background="{StaticResource ForegroundLightBrush}"
+          Width="650"
+          VerticalAlignment="Top"
+          HorizontalAlignment="Center">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Height="70">
+                <!-- Back button -->
+                <Button Style="{StaticResource ScalingIconButtonStyle}"
+                        HorizontalAlignment="Left"
+                        Height="35"
+                        Margin="10 0 0 0"
+                        Command="{Binding CloseCommand}" >
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               Foreground="{StaticResource ForegroundDarkBrush}"
+                               Text="{StaticResource FontAwesomeAngleLeft}"
+                               FontSize="{StaticResource FontSizeSmaller}"/>
+                </Button>
+
+                <!-- Settings Title -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesome}"
+                               FontSize="{StaticResource FontSizeVeryLarge}"
+                               Foreground="{StaticResource WordBlueBrush}"
+                               Text="{StaticResource FontAwesomeConfiguration}"
+                               VerticalAlignment="Center"
+                               Margin="0 0 10 0"/>
+                    <TextBlock Text="Settings"
+                               Margin="0 0 0 0"
+                               HorizontalAlignment="Center"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource ForegroundDarkBrush}"
+                               FontSize="{StaticResource FontSizeLarge}"/>
+                </StackPanel>
+            </Grid>
+                    
+           
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <!--Account Info-->
+                    <local:AccountInfoControl local:AnimateSlideInFromRightMarginProperty.Value="{Binding AccountInfoViewModel.AccountInfoVisible,Source={x:Static local:ViewModelLocator.Instance}}"/>
+
+                    <!-- Settings Page -->
+                    <Grid local:AnimateSlideInFromRightMarginProperty.Value="{Binding AccountInfoViewModel.AccountInfoVisible, Source={x:Static local:ViewModelLocator.Instance},Converter={local:BooleanInvertConverter},FallbackValue=True}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="210"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Margin="0 20 0 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--Picture Circle-->
+                            <Ellipse VerticalAlignment="Top"
+                                     Width="150"
+                                     Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+                                <Ellipse.Fill>
+                                    <ImageBrush Stretch="UniformToFill"
+                                                ImageSource="{Binding AccountInfoViewModel.ProfilePicThumbUri,
+                                                                      FallbackValue={StaticResource DefaultPersonImage},
+                                                                      Converter={local:StringToImageSourceConverter},
+                                                                      Source={x:Static local:ViewModelLocator.Instance}}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <!-- Name -->
+                            <TextBlock Grid.Row="1"
+                                       Text="{Binding Name}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource ForegroundVeryDarkBrush}"
+                                       FontSize="{StaticResource FontSizeMedium}"/>
+                        </Grid>
+                        
+                        <StackPanel Grid.Row="1" Margin="0 10 0 40">
+                            <!-- Account -->
+                            <local:SettingsOptionControl DataContext="{Binding Account}">
+                                <local:SettingsOptionControl.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding AccountInfoCommand}"/>
+                                </local:SettingsOptionControl.InputBindings>
+                            </local:SettingsOptionControl>
+                            <!-- Chats -->
+                            <local:SettingsOptionControl DataContext="{Binding Chat}"/>
+                            <!-- Data and Storage Usage -->
+                            <local:SettingsOptionControl DataContext="{Binding DataUsage}"/>
+                            <!-- Privacy -->
+                            <local:SettingsOptionControl DataContext="{Binding Privacy}"/>
+                            <!-- Tell a friend -->
+                            <local:SettingsOptionControl DataContext="{Binding Share}"/>
+                            <!-- Help -->
+                            <local:SettingsOptionControl DataContext="{Binding Help}"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+   
+</UserControl>

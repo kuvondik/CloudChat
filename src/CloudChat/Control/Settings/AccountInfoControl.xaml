@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="CloudChat.AccountInfoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CloudChat"
+             mc:Ignorable="d"
+             d:DataContext="{x:Static local:AccountInfoDesignModel.Instance}">
+    
+    <Grid Background="{StaticResource ForegroundLightBrush}">
+        <StackPanel Orientation="Horizontal"
+                    Margin="10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center">
+
+            <!--Profile Info-->
+            <StackPanel Margin="20 20 20 20"
+                        ClipToBounds="True"
+                        HorizontalAlignment="Center"
+                        local:TextEntryWidthMatcherProeprty.Value="True">
+                <local:TextEntryControl Width="355" DataContext="{Binding FirstName}" />
+                <local:TextEntryControl Width="355" DataContext="{Binding LastName}" />
+                <local:TextEntryControl Width="355" DataContext="{Binding Username}" />
+                <local:PasswordEntryControl Width="355" DataContext="{Binding Password}" />
+                <local:TextEntryControl Width="355" DataContext="{Binding Email}" />
+            </StackPanel>
+
+            <!--Profile Picture-->
+            <Grid Background="{StaticResource ForegroundLightBrush}"
+                  Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border CornerRadius="150"
+                        Width="150"
+                        Height="150"
+                        Margin="10 0 10 10"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center">
+                    <Border.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" 
+                                      Command="{Binding ProfilePicEditCommand}"/>
+                    </Border.InputBindings>
+                    <Grid>
+                        <Border CornerRadius="150">
+                            <Border.Background>
+                                <ImageBrush ImageSource ="{Binding ProfilePicThumbUri,
+                                                                   FallbackValue={StaticResource DefaultPersonImage},
+                                                                   Converter={local:StringToImageSourceConverter}}" 
+                                            Stretch="UniformToFill" />
+                            </Border.Background>
+                        </Border>
+                        <Border x:Name="editShadowBorder"
+                                CornerRadius="150"
+                                Opacity="0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5 0" EndPoint="0.5 1">
+                                    <GradientStop Offset="0" Color="Transparent" />
+                                    <GradientStop Offset="0.9" Color="{StaticResource ForegroundVeryDark}" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <TextBlock Text="Edit" 
+                                   Foreground="{StaticResource ForegroundLightBrush}"
+                                   VerticalAlignment="Bottom"
+                                   Padding="0 0 0 10"
+                                   Opacity="0"
+                                   x:Name="txtEdit"
+                                   HorizontalAlignment="Center" />
+                    </Grid>
+                    <Border.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="editShadowBorder"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.5"
+                                                    Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="txtEdit"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="editShadowBorder"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0"
+                                                    Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="txtEdit"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0"
+                                                    Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Border.Triggers>
+                </Border>
+
+                <Grid Grid.Row="1"
+                          Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Account activity"
+                               Margin="5 0 0 0"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource BlueColorBrush1}"
+                               FontSize="{StaticResource FontSizeRegular}"
+                               FontWeight="semiBold" />
+                    <StackPanel Grid.Row="1" 
+                                Margin="0 10 0 0"
+                                Width="140">
+                        <TextBlock Text="Last sign-in"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding LastSignInDate}"
+                                   Margin="0 5 0 5"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="Password" 
+                                   FontWeight="SemiBold" />
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="0 5 0 5" >
+                            <Run Text="Changed at "/>
+                            <Run Text="{Binding PasswordChangedDate}"/>
+                        </TextBlock>
+
+                        <Button  Content="{Binding LogoutButtonText}"
+                                 Command="{Binding LogoutCommand}"
+                                 Padding="8"
+                                 Background="{StaticResource WordRedBrush}"
+                                 Margin="0 10 0 0"
+                                 FontSize="{StaticResource FontSizeSmaller}">
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="CloudChat.AddConatactForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CloudChat"
+             mc:Ignorable="d"
+             Width="320"
+             d:DataContext="{x:Type local:AddContactFormViewModel}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Height="80"
+                    Width="80"
+                    BorderThickness="3"
+                    BorderBrush="{StaticResource OldMainColorBrush}"
+                    CornerRadius="80"
+                    Margin="0 0 0 -40"
+                    Background="{StaticResource ForegroundLightBrush}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Panel.ZIndex="1">
+                <ContentControl Template="{StaticResource MyPersonIcon}"
+                                Height="40"
+                                Foreground="{StaticResource ForegroundLightBrush}"
+                                Background="{StaticResource ForegroundDarkBrush}"/>
+            </Border>
+            <Border Grid.Row="1" 
+                    CornerRadius="20 20 10 10"
+                    Background="{StaticResource ForegroundLightBrush}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Border Height="70"
+                            Margin="0 -2 0 0"
+                            CornerRadius="10 10 0 0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0.5 0" EndPoint="0.5 1">
+                                <GradientStop Offset="1" Color="{StaticResource OldMainDarkColor}"/>
+                                <GradientStop Offset="0" Color="{StaticResource OldMainColor}"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <TextBlock Text="New Contact"
+                               FontWeight="Light"
+                               Foreground="WhiteSmoke"
+                               FontSize="{StaticResource FontSizeMedium}"
+                               VerticalAlignment="Bottom"
+                               Margin="0 5"
+                               HorizontalAlignment="Center"/>
+                    </Border>
+                    <Grid Grid.Row="1" 
+                          x:Name="grid"
+                          Margin="40 20 40 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock FontSize="{StaticResource FontSizeRegular}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="10 0 10 5"
+                                   Foreground="{StaticResource OldMainColorBrush}"
+                                   TextWrapping="Wrap"
+                                   Text="Please enter a valid email of your friend:"/>
+                        <TextBox FontSize="{StaticResource FontSizeRegular}" 
+                                 Text="{Binding Email}"
+                                 x:Name="txtEmail"
+                                 Style="{StaticResource SimpleTextBoxStyle}"
+                                 Margin="10" 
+                                 Grid.Row="1" 
+                                 Tag="Email">
+                            <TextBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Cut" Command="ApplicationCommands.Cut"/>
+                                    <MenuItem Header="Copy" Command="ApplicationCommands.Copy"/>
+                                    <MenuItem Header="Paste" Command="ApplicationCommands.Paste"/>
+                                </ContextMenu>
+                            </TextBox.ContextMenu>
+                        </TextBox>
+                        <!--<TextBox FontSize="{StaticResource FontSizeRegular}"
+                             Text="{Binding PhoneNumber}"
+                             Style="{StaticResource SimpleTextBoxStyle}"
+                             Margin="10" 
+                             Grid.Row="3" 
+                             Tag="Phone number"/>-->
+                        <StackPanel Grid.Row="2" 
+                                HorizontalAlignment="Center"
+                                Margin="0 20 0 20"
+                                Orientation="Horizontal">
+                            <Button Content="Save"
+                                local:IsBusyProperty.Value="{Binding Saving}"
+                                Background="{StaticResource WordGreenBrush}"
+                                IsDefault="True"
+                                Command="{Binding SaveCommand}"
+                                CommandParameter="{Binding ElementName=txtEmail}"
+                                Margin="4"
+                                Padding="5"
+                                Width="100"
+                                FontSize="{StaticResource FontSizeRegular}"/>
+                            <Button Content="Cancel"
+                                IsCancel="True"
+                                Command="{Binding CancelCommand}"
+                                CommandParameter="{Binding ElementName=txtEmail}"
+                                Margin="4"
+                                Padding="5"
+                                Width="100"
+                                FontSize="{StaticResource FontSizeRegular}"
+                                Background="{StaticResource WordRedBrush}"/>
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid> 
+    </ScrollViewer>
+</UserControl>

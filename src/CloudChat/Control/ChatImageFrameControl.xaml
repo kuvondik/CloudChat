@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="CloudChat.ChatImageFrameControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CloudChat"
+             mc:Ignorable="d" 
+             d:DataContext="{x:Type local:ChatMessageItemImageAttachmentViewModel}">
+    <UserControl.Resources>
+        <BitmapImage x:Key="DefaultImage"
+                     UriSource="/Images/Background/Person.png"/>
+    </UserControl.Resources>
+    <Grid>
+        <!--ImageAttachment-->
+        <Border CornerRadius="10"
+                Grid.Row="1"
+                Margin="0 0 0 5">
+            <Image Source="{Binding FileUrl,
+                                    NotifyOnTargetUpdated=True,
+                                    Converter={local:StringToImageSourceConverter},
+                                    FallbackValue={StaticResource DefaultImageAttachment}}"
+                   MaxWidth="330"
+                   Margin="-30"
+                   Stretch="UniformToFill"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   local:ClipFromBorderProperty.Value="True"/>
+        </Border>
+        <!-- Before Download -->
+        <Border CornerRadius="10"
+                ClipToBounds="True"
+                Visibility="{Binding IsDownloaded, 
+                                     Converter={local:BooleanToVisibilityConverterForCollapsed}}">
+            <Border MaxWidth="330"
+                    Margin="-30"
+                    local:FadeInImageOnLoadProperty.Value="True"
+                    local:ClipFromBorderProperty.Value="True">
+                <Border.Effect>
+                    <BlurEffect KernelType="Gaussian" Radius="30"/>
+                </Border.Effect>
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding FileThumbnailPath,
+                                     Converter={local:StringToImageSourceConverter},
+                                     FallbackValue={StaticResource DefaultImageAttachment}}"/>
+                </Border.Background>
+            </Border>
+        </Border>
+        <!-- Download button -->
+        <Border Height="40"
+                Width="40"
+                CornerRadius="40"
+                Visibility="{Binding IsDownloaded,
+                                     Converter={local:BooleanToVisibilityConverterForHidden}}"
+                Background="Black">
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding DownloadFileCommand}"/>
+            </Border.InputBindings>
+            <TextBlock FontFamily="{StaticResource FontAwesome}"
+                       Foreground="{StaticResource ForegroundLightBrush}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="15"
+                       Text="{StaticResource FontAwesomeArrowDown}"/>
+        </Border>
+        <!-- Spinner -->
+        <local:MainLoadingControl Visibility="{Binding Downloading,Converter={local:BooleanToVisibilityConverterForCollapsed},ConverterParameter=True}"
+                                  Height="45"/>
+    </Grid>
+</UserControl>

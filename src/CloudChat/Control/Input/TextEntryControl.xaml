@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="CloudChat.TextEntryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CloudChat"
+             mc:Ignorable="d"
+             d:DataContext="{x:Static local:TextEntryDesignModel.Instance}">
+    <Border BorderBrush="{StaticResource ForegroundMainBrush}"
+            BorderThickness="0 0 0 0.4">
+        <Grid Cursor="Hand"
+              IsEnabled="{Binding Working,Converter={local:BooleanInvertConverter}}"
+              Background="{StaticResource ForegroundLightBrush}">
+            <!-- Mouse Over Event-->
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetName="content"
+                                         Storyboard.TargetProperty="Foreground.Color"
+                                         Duration="0:0:0.1"
+                                         To="{StaticResource  ForegroundVeryDark}"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetName="content"
+                                         Storyboard.TargetProperty="Foreground.Color"
+                                         Duration="0:0:0.1"
+                                         To="{StaticResource MainBackgroundLight}"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+            <!-- Left Click Event -->
+            <Grid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditCommand}"/>
+            </Grid.InputBindings>
+            <!-- Label -> Name -> Buttons -->
+            <Grid.ColumnDefinitions>
+                <!-- Label -->
+                <ColumnDefinition Name="LabelColumnDefinition" Width="auto"/>
+
+                <!-- Name -->
+                <ColumnDefinition Width="*"/>
+
+                <!-- Buttons -->
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <!--Label-->
+            <TextBlock Text="{Binding Label}"
+                       Margin="15 15"
+                       x:Name="Label"
+                       Foreground="Black"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="{StaticResource FontSizeSmall}"/>
+            <!--Edit Content-->
+            <TextBox Text="{Binding EditedText,UpdateSourceTrigger=PropertyChanged}" 
+                     Grid.Column="1"
+                     Style="{StaticResource SimpleTextBoxStyle}"
+                     Margin="15 9"
+                     Padding="2 5 2 5"
+                     VerticalAlignment="Center"
+                     local:AnimateFadeInProperty.Value="{Binding Editing}"
+                     FontSize="{StaticResource FontSizeSmall}"
+                     local:FocusProperty.Value="{Binding Editing}"
+                     local:SelectAllTextProperty.Value="{Binding Editing}"/>
+            <!-- Original text -->
+            <TextBlock Grid.Column="1" 
+                       x:Name="content"
+                       TextTrimming="CharacterEllipsis"
+                       VerticalAlignment="Center"
+                       ToolTip="{Binding OriginalText}"
+                       Margin="18.5 0 18.5 0"
+                       Visibility="{Binding Editing,Converter={local:BooleanToVisibilityConverterForCollapsed}}"
+                       Text="{Binding OriginalText}"
+                       Foreground="{StaticResource MainBackgroundLightBrush}"
+                       FontSize="{StaticResource FontSizeSmall}"/>
+            <!-- Buttons -->
+            <StackPanel Grid.Column="2" 
+                        Width="66"
+                        Orientation="Horizontal">
+
+                <!--Save button-->
+                <Button x:Name="saveButton"
+                        Padding="0"
+                        Width="30"
+                        Height="25"
+                        Margin="0"
+                        Command="{Binding SaveCommand}"
+                        local:AnimateSlideInFromRightFullyProperty.Value="{Binding Editing}"
+                        IsDefault="True"
+                        FontSize="{StaticResource FontSizeSmall}"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource WordGreenBrush}">
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeCheck}"/>
+                </Button>
+
+                <!--Cancel Button-->
+                <Button x:Name="cancelButton"
+                        Command="{Binding CancelCommand}"
+                        IsCancel="True"
+                        local:AnimateFadeInProperty.Value="{Binding Editing}"
+                        Padding="0"
+                        Width="30"
+                        Height="25"
+                        Margin="5 0 0 0"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource FontSizeSmall}"
+                        Background="{StaticResource WordRedBrush}">
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeTimes}"/>
+                </Button>
+            </StackPanel>
+            <!-- Spin (means in process)-->
+            <Grid VerticalAlignment="Center"
+                  Grid.Column="2"
+                  HorizontalAlignment="Center"
+                  local:AnimateFadeInProperty.Value="{Binding Working}">
+                <local:MainLoadingControl Height="30"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

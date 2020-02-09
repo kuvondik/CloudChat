@@ -1,0 +1,209 @@
+﻿<ContentControl x:Class="CloudChat.MainLoadingControl"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                 mc:Ignorable="d">
+    <ContentControl.Resources>
+        <Storyboard x:Key="MyStoryboard" RepeatBehavior="Forever">
+            
+            <MatrixAnimationUsingPath Storyboard.TargetName="red"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      Duration="0:0:0.6">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="0 0">
+                                <ArcSegment Size="40 40"
+                                            Point="-38 10"
+                                            IsLargeArc="True"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+                
+            </MatrixAnimationUsingPath>
+            <MatrixAnimationUsingPath Storyboard.TargetName="green"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:0.5562"
+                                      Duration="0:0:0.0438">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="0 0">
+                                <ArcSegment Size="40 40"
+                                            Point="17.5 -10"
+                                            IsLargeArc="False"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+            <MatrixAnimationUsingPath Storyboard.TargetName="blue"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:0.5562"
+                                      Duration="0:0:0.0438">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="0 0">
+                                <ArcSegment Size="40 40"
+                                            Point="20 0"
+                                            IsLargeArc="False"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+            
+            <MatrixAnimationUsingPath Storyboard.TargetName="green"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:0.6"
+                                      Duration="0:0:0.6">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="17.5 -10">
+                                <ArcSegment Size="40 40"
+                                            Point="-20 0"
+                                            IsLargeArc="True"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+            <MatrixAnimationUsingPath Storyboard.TargetName="blue"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:1.1562"
+                                      Duration="0:0:0.0438">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="20 0">
+                                <ArcSegment Size="40 40"
+                                            Point="38 -10"
+                                            IsLargeArc="False"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+            <MatrixAnimationUsingPath Storyboard.TargetName="red"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:1.1562"
+                                      Duration="0:0:0.0438">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="-38 10">
+                                <ArcSegment Size="40 40"
+                                            Point="-17.5 10"
+                                            IsLargeArc="False"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+
+            
+            
+            <MatrixAnimationUsingPath Storyboard.TargetName="blue"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:1.2"
+                                      Duration="0:0:0.6">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="38 -10">
+                                <ArcSegment Size="40 40"
+                                            Point="0 0"
+                                            IsLargeArc="True"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+            <MatrixAnimationUsingPath Storyboard.TargetName="red"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:1.7562"
+                                      Duration="0:0:0.0438">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="-17.5 10">
+                                <ArcSegment Size="40 40"
+                                            Point="0 0"
+                                            IsLargeArc="False"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+            <MatrixAnimationUsingPath Storyboard.TargetName="green"
+                                      Storyboard.TargetProperty="RenderTransform.(MatrixTransform.Matrix)"
+                                      BeginTime="0:0:1.7562"
+                                      Duration="0:0:0.0438">
+                <MatrixAnimationUsingPath.PathGeometry>
+                    <PathGeometry>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="-20 0">
+                                <ArcSegment Size="40 40"
+                                            Point="0 0"
+                                            IsLargeArc="False"
+                                            SweepDirection="Counterclockwise"/>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry>
+                </MatrixAnimationUsingPath.PathGeometry>
+
+            </MatrixAnimationUsingPath>
+
+
+        </Storyboard>
+    </ContentControl.Resources>
+    <ContentControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource MyStoryboard}"/>
+        </EventTrigger>
+    </ContentControl.Triggers>
+    <Viewbox>
+        <Canvas Width="100" 
+                Height="100">
+            <Ellipse Width="100"
+                 Fill="LightGoldenrodYellow" Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}"/>
+
+            <!-- Red Ellipse -->
+            <Ellipse x:Name="red"
+                 Width="20" 
+                 Fill="Red" 
+                 Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}" Canvas.Left="68" Canvas.Top="68.5"/>
+            <!-- Green Ellipse -->
+            <Ellipse Width="20" 
+                 x:Name="green"
+                 Fill="Green" 
+                 Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}" Canvas.Right="29.5" Canvas.Top="78.5"/>
+
+            <!-- Blue Ellipse -->
+            <Ellipse Width="20" 
+                 x:Name="blue"
+                 Fill="Blue" 
+                 Height="{Binding ActualWidth,RelativeSource={RelativeSource Self}}" Canvas.Left="30" Canvas.Top="78.5"/>
+        </Canvas>
+    </Viewbox>
+    
+</ContentControl>

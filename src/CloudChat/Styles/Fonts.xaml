@@ -1,0 +1,72 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Font Family-->
+    <FontFamily x:Key="Maiandra GD">pack://application;,,,/Fonts/#Maiandra GD</FontFamily>
+    <FontFamily x:Key="Malgun Gothic">pack://application;,,,/Fonts/#Malgun Gothic</FontFamily>
+    <FontFamily x:Key="Calibri">pack://application;,,,/Fonts/#Calibri</FontFamily>
+    <FontFamily x:Key="FontEmoji">pack://application;,,,/Fonts/#Segoe UI Emoji</FontFamily>
+    <FontFamily x:Key="SanFrancisco">pack://application;,,,/Fonts/#SF Compact Text</FontFamily>
+    <FontFamily x:Key="BellGothicLight">pack://application;,,,/Fonts/#Bell Gothic Std Light</FontFamily>
+    <FontFamily x:Key="BellGothicBold">pack://application;,,,/Fonts/#Bell Gothic Std Bold</FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
+    <FontFamily x:Key="ABeeZee">pack://application;,,,/Fonts/#ABeeZee</FontFamily>
+    <FontFamily x:Key="SegoeUIEmoji">pack://application;,,,/Fonts/#Segoe UI Emoji</FontFamily>
+
+    <!-- Base Styles for Controls and TextBlock-->
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource SanFrancisco}" />
+    </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource SanFrancisco}" />
+    </Style>
+    
+    <!-- Base Styles for specific types of controls-->
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
+
+    <!-- Font Size -->    
+    <system:Double x:Key="FontSizeRegular">16</system:Double>
+    <system:Double x:Key="InputMessageFontSize">15</system:Double>
+    <system:Double x:Key="FontSizeVerySmall">10</system:Double>
+    <system:Double x:Key="FontSizeVeryVerySmall">8</system:Double>
+    <system:Double x:Key="FontSizeSmaller">12</system:Double>
+    <system:Double x:Key="FontSizeSmall">14</system:Double>
+    <system:Double x:Key="FontSizeAverage">18</system:Double>
+    <system:Double x:Key="FontSizeMedium">20</system:Double>
+    <system:Double x:Key="FontSizeLarge">25</system:Double>
+    <system:Double x:Key="FontSizeLarger">30</system:Double>
+    <system:Double x:Key="FontSizeVeryLarge">32</system:Double>
+    
+    <!-- Icons -->
+    <system:String x:Key="FontAwesomePaperPlane">&#xf1d8;</system:String>
+    <system:String x:Key="FontAwesomeSpinner">&#xf110;</system:String>
+    <system:String x:Key="FontAwesomeRefresh">&#xf021;</system:String>
+    <system:String x:Key="FontAwesomeRepeat">&#xf01e;</system:String>
+    <system:String x:Key="FontAwesomeConfiguration">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeChats">&#xf0e6;</system:String>
+    <system:String x:Key="FontAwesomeCircleNotch">&#xf1ce;</system:String>
+    <system:String x:Key="FontAwesomePaperClip">&#xf0c6;</system:String>
+    <system:String x:Key="FontAwesomePowerOff">&#xf011;</system:String>
+    <system:String x:Key="FontAwesomeEllipsisH">&#xf141;</system:String>
+    <system:String x:Key="FontAwesomeEllipsisV">&#xf142;</system:String>
+    <system:String x:Key="FontAwesomeAngleLeft">&#xf104;</system:String>
+    <system:String x:Key="FontAwesomeAngleRight">&#xf105;</system:String>
+    <system:String x:Key="FontAwesomeAngleUp">&#xf106;</system:String>
+    <system:String x:Key="FontAwesomeAngleDown">&#xf107;</system:String>
+    <system:String x:Key="FontAwesomeArrowLeft">&#xf060;</system:String>
+    <system:String x:Key="FontAwesomeArrowRight">&#xf061;</system:String>
+    <system:String x:Key="FontAwesomeArrowUp">&#xf062;</system:String>
+    <system:String x:Key="FontAwesomeArrowDown">&#xf063;</system:String>
+    <system:String x:Key="FontAwesomeCheck">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeTimes">&#xf00d;</system:String>
+    <system:String x:Key="FontAwesomeEye">&#xf06e;</system:String>
+    <system:String x:Key="FontAwesomeSmile">&#xf118;</system:String>
+    <system:String x:Key="FontAwesomeMicrophone">&#xf130;</system:String>
+    <system:String x:Key="FontAwesomeSearch">&#xf002;</system:String>
+
+</ResourceDictionary>

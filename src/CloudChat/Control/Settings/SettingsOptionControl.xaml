@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="CloudChat.SettingsOptionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CloudChat"
+             xmlns:core="clr-namespace:CloudChat.Core;assembly=CloudChat.Core"
+             mc:Ignorable="d"
+             d:DataContext="{x:Static local:SettingsOptionDesignModel.Instance}">
+    <UserControl.Resources>
+        <BitmapImage x:Key="DefaultImage" UriSource="/Images/Icons/heart.png" />
+    </UserControl.Resources>
+    <Border Height="40"
+            Cursor="Hand"
+            Width="300" 
+            BorderThickness="0 0.5 0 0"
+            BorderBrush="{StaticResource ForegroundMainBrush}"
+            Background="{StaticResource ForegroundLightBrush}">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2" x:Name="mOpacityMask" Opacity="0">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="1" Color="{StaticResource ForegroundMain}" />
+                        <GradientStop Offset="0.5" Color="{StaticResource ForegroundDark}" />
+                        <GradientStop Offset="0.2" Color="{StaticResource ForegroundDark}" />
+                        <GradientStop Offset="0" Color="{StaticResource ForegroundMain}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            
+        <Image Margin="10 8" 
+               Source="{Binding IconPath,FallbackValue={StaticResource DefaultImage}}"
+               RenderOptions.BitmapScalingMode="HighQuality"/>
+        <TextBlock Grid.Column="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Margin="20 0 0 0"
+                   Foreground="{StaticResource ForegroundVeryDarkBrush}"
+                   FontSize="{StaticResource FontSizeRegular}"
+                   Text="{Binding Title}"/>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.15"
+                                             Storyboard.TargetName="mOpacityMask"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.15"
+                                             Storyboard.TargetName="mOpacityMask"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+    </Grid>
+    </Border>
+</UserControl>

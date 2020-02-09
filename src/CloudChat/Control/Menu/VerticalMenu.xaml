@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="CloudChat.VerticalMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CloudChat"
+             mc:Ignorable="d">
+    <ItemsControl d:DataContext="{x:Static local:MenuDesignModel.Instance}"
+                  ItemsSource="{Binding Items}"
+                  Background="White">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <!--Header-->
+                    <Grid HorizontalAlignment="Center" Visibility="{Binding Type,Converter={local:MenuItemTypeVisibilityConverter},ConverterParameter=Header}">
+
+                        <!--Header Line-->
+                        <!--<Border Height="0.5" Background="{StaticResource ForegroundDarkBrush}"/>-->
+
+                        <TextBlock Text="{Binding Text}"
+                                   Padding="0 5 10 5"
+                                   Background="{StaticResource ForegroundLightBrush}"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{StaticResource ForegroundDarkBrush}"
+                                   FontSize="{StaticResource FontSizeSmaller}"/>
+                    
+                    </Grid>
+                    
+                    <!--Menu Item-->
+                    <Border CornerRadius="8"
+                            Padding="5"
+                            Visibility="{Binding Type,Converter={local:MenuItemTypeVisibilityConverter},ConverterParameter=TextAndIcon }"
+                            Background="{StaticResource ForegroundLightBrush}">
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding OptionCommand}"/>
+                        </Border.InputBindings>
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource WordDarkBlue}" Duration="0:0:0.000"/>
+                                        <ColorAnimation Storyboard.TargetName="itemText" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource ForegroundLight}" Duration="0:0:0.000"/>
+                                        <ColorAnimation Storyboard.TargetName="icon" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource ForegroundLight}" Duration="0:0:0.000"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="{StaticResource ForegroundLight}" Duration="0:0:0.000"/>
+                                        <ColorAnimation Storyboard.TargetName="itemText" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource ForegroundVeryDark}" Duration="0:0:0.000"/>
+                                        <ColorAnimation Storyboard.TargetName="icon" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource ThumbColor}" Duration="0:0:0.000"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Icon-->
+                            <TextBlock  VerticalAlignment="Center" 
+                                        x:Name="icon"
+                                        FontSize="{StaticResource FontSizeLarge}"
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        Foreground="{StaticResource ForegroundDarkBrush}"
+                                        Text="{Binding Icon,Converter={local:IconTypeToFontAwesomeConverter}}"/>
+                            <!--Text-->
+                            <TextBlock 
+                                x:Name="itemText"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"
+                                Margin="10 0 5 0"
+                                Foreground="{StaticResource ForegroundVeryDarkBrush}"
+                                Text="{Binding Text}"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

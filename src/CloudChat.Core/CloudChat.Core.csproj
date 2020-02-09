@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ThumbCreator\**" />
+    <EmbeddedResource Remove="ThumbCreator\**" />
+    <None Remove="ThumbCreator\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dna.Framework" Version="1.0.7.15" />
+  </ItemGroup>
+
+</Project>

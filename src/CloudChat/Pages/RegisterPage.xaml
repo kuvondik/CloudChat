@@ -1,0 +1,71 @@
+﻿<local:BasePage x:TypeArguments="local:RegisterViewModel" x:Class="CloudChat.RegisterPage"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:local="clr-namespace:CloudChat"
+                mc:Ignorable="d"
+                d:DesignHeight="500"
+                x:Name="Page"> 
+    <Border>
+        <Grid>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                          VerticalScrollBarVisibility="Auto"
+                          VerticalAlignment="Center"
+                          Margin="0 0 5 0">
+                <Border Background="{StaticResource ForegroundLightBrush}"
+                        HorizontalAlignment="Left"
+                        Margin="60 20 20 20"
+                        Width="320"
+                        CornerRadius="10"
+                        IsHitTestVisible="{Binding ApplicationViewModel.IsHitTestVisible, Source={x:Static local:ViewModelLocator.Instance}}"
+                        Padding="25 30 25 10">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="20" 
+                                              Direction="-75" 
+                                              ShadowDepth="3"
+                                              Opacity="0.4"/>
+                        </Border.Effect>
+                        
+                        <StackPanel>
+                            <TextBlock Text="Sign Up"
+                                       HorizontalAlignment="Center"
+                                       FontSize="{StaticResource FontSizeVeryLarge}"
+                                       Foreground="{StaticResource WordBlueBrush}" />
+                            <TextBlock Text="Get ready to message"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Light"
+                                       Margin="0 0 0 30"
+                                       FontSize="{StaticResource FontSizeRegular}"
+                                       Foreground="{StaticResource WordGreenBrush}" />
+                            <TextBox local:IsFocusedProperty.Value="True" 
+                                     Tag="Username"
+                                     Text="{Binding Username}"
+                                     Margin="0 0 0 25"/>
+                            <TextBox Tag="Email"
+                                     Text="{Binding Email}"
+                                     Margin="0 0 0 25"/>
+                            <PasswordBox Tag="Password"
+                                         PasswordChanged="PasswordText_PasswordChanged"
+                                         x:Name="PasswordText" 
+                                         Margin="0 0 0 20"/>
+                            <PasswordBox Tag="Confirm Password"
+                                         PasswordChanged="ConfirmPasswordText_PasswordChanged"
+                                         x:Name="ConfirmPasswordText" 
+                                         Margin="0 0 0 20"/>
+                            <Button Content="Register"
+                                    x:Name="btnRegister"
+                                    IsDefault="True"
+                                    local:IsBusyProperty.Value="{Binding RegisterIsRunning}"
+                                    Command="{Binding RegisterCommand}"
+                                    CommandParameter="{Binding ElementName=Page}"/>
+                        <Button Style="{StaticResource TextButtonStyle}"
+                                Grid.Row="1"
+                                Content="Or, I already have an account..."
+                                Command="{Binding ToLoginPageCommand}" />
+                        </StackPanel>
+                    </Border>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</local:BasePage>
